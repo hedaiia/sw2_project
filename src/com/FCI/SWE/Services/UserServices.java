@@ -122,11 +122,11 @@ public class UserServices {
 
 	}
 	@POST
-	@Path("/acceptFriendRequestService")
+	@Path("/acceptFriend")
 	public String accpetFriendService(
 			@FormParam("friendemail") String friendEmail) {
 		JSONObject object = new JSONObject();
-		boolean sucess = UserEntity.acceptFriendRequest(User.getCurrentActiveUser().getEmail() , friendEmail);
+		boolean sucess = UserEntity.acceptFriend(friendEmail);
 		if (sucess == false) {
 			object.put("Status", "Failed");
 

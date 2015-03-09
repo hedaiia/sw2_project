@@ -182,7 +182,7 @@ public class UserController {
 	@POST
 	@Path("/SendFriendRequest")
 	@Produces("text/html")
-	public Response response(@FormParam("Femail") String Femail) {
+	public Response response(@FormParam("friendemail") String Femail) {
 
 		String serviceUrl = "http://localhost:8888/rest/SendFriendRequest";
 		String urlParameters = "friendemail=" + Femail;
@@ -196,7 +196,7 @@ public class UserController {
 	@Produces("text/html")
 	public Response acceptFriend(@FormParam("uname") String uname) {
 
-		String serviceUrl = "http://localhost:8888/rest/acceptFriendRequestService";
+		String serviceUrl = "http://localhost:8888/rest/acceptFriend";
 		String urlParameters = "friendemail=" + uname;
 		String retJson = Connection.connect(serviceUrl, urlParameters, "POST",
 				"application/x-www-form-urlencoded;charset=UTF-8");

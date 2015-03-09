@@ -17,17 +17,15 @@
   
   </form>
    -->
-   
-   
-   <a href="/social/signout">SignOut</a>
+      <a href="/social/signout">SignOut</a>
   <form action="/social/SendFriendRequest" method="post">
-  addFriend : <input type="text" name="Femail" /> <br>
-  <input type="submit" value="Login">
-
+  friend : <input type="text" name="friendemail" /> <br>
+<input type="submit" value="add">
+</form>
 
 <form action="/social/acceptFriend" method="post">
   Name : <input type="text" name="uname" /> <br>
-<input type="submit" value="Login">
+<input type="submit" value="accept">
 </form>
 </body>
 </html>

@@ -147,14 +147,14 @@ public class UserEntity {
 		return true;
 
 	}
-	public static boolean acceptFriendRequest (String email,String friendEmail) {
+	public static boolean acceptFriend (String friendEmail) {
 		DatastoreService datastore = DatastoreServiceFactory
 				.getDatastoreService();
 
 		Query gaeQuery = new Query("Requests");
 		PreparedQuery pq = datastore.prepare(gaeQuery);
 		for (Entity entity : pq.asIterable()) {
-			if(entity.getProperty("usereamil").equals(email) && entity.getProperty("friendemail").equals(friendEmail)){
+			if(entity.getProperty("friendemail").equals(friendEmail)){
 				entity.setProperty("status", "1");
 				datastore.put(entity);	
 				return true;
