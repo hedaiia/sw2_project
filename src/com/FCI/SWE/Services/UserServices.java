@@ -1,6 +1,5 @@
 package com.FCI.SWE.Services;
 
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -26,9 +25,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import com.FCI.SWE.Models.User;
-import com.FCI.SWE.ServicesModels.UserEntity;
-
+import com.FCI.SWE.Models.UserEntity;
 
 /**
  * This class contains REST services, also contains action function for web
@@ -40,7 +37,7 @@ import com.FCI.SWE.ServicesModels.UserEntity;
  *
  */
 @Path("/")
-@Produces(MediaType.TEXT_PLAIN)
+@Produces("text/html")
 public class UserServices {
 	
 	
@@ -73,15 +70,6 @@ public class UserServices {
 		object.put("Status", "OK");
 		return object.toString();
 	}
-	
-	///////////////////////////////
-	///////////sendfreind 
-	
-	
-	
-	
-	
-	
 
 	/**
 	 * Login Rest Service, this service will be called to make login process
@@ -104,40 +92,64 @@ public class UserServices {
 			object.put("name", user.getName());
 			object.put("email", user.getEmail());
 			object.put("password", user.getPass());
-			object.put("id", user.getId());
 		}
+
 		return object.toString();
 
 	}
+	
+	/**
+	 * send Friend Request Rest Service, this service will be called to make send request process
+	 * also will check users data from datastore
+	 * @param uname provided user name
+	 * @param currentUser provided current user
+	 * @return object in json format
+	 */
+	
 	@POST
-	@Path("/SendFriendRequest")
-	public String SendFriendRequestService(@FormParam("friendemail") String email1) {
+	@Path("/sendFriendRequestService")
+	public String sendFriendRequestService(@FormParam("uname") String uname,@FormParam("currentUser") String currentUser) {
 		JSONObject object = new JSONObject();
-		boolean us = UserEntity.saveRequest(User.getCurrentActiveUser().getEmail(), email1);
-		
+		int flag = UserEntity.sendFriendRequest(uname , currentUser);
+		if (flag == 0) {
+			object.put("Status", "Failed");
+
+		} 
+		else if(flag == 1){
+			object.put("Status", "Exist");
+		}
+		else {
+			object.put("Status", "OK");
 			
-			object.put("status", "ok");
-					
+		}
+
 		return object.toString();
 
 	}
+	
+	/**
+	 * accept Friend Request Rest Service, this service will be called to make accept request process
+	 * also will check users data from datastore
+	 * @param uname provided user name
+	 * @param currentUser provided current user
+	 * @return object in json format
+	 */
+	
 	@POST
-	@Path("/acceptFriend")
-	public String accpetFriendService(
-			@FormParam("friendemail") String friendEmail) {
+	@Path("/acceptFriendRequestService")
+	public String accpetFriendService(@FormParam("uname") String uname,@FormParam("currentUser") String currentUser) {
 		JSONObject object = new JSONObject();
-		boolean sucess = UserEntity.acceptFriend(friendEmail);
-		if (sucess == false) {
+		boolean flag = UserEntity.acceptFriendRequest(uname , currentUser);
+		if (flag == false) {
 			object.put("Status", "Failed");
 
 		} else {
-			object.put("Status", "accepted");
+			object.put("Status", "OK");
 			
 		}
 
 		return object.toString();
 
 	}
-
 
 }
