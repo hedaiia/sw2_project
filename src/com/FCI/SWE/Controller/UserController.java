@@ -128,7 +128,7 @@ public class UserController {
 	@Produces(MediaType.TEXT_PLAIN)
 	public String response(@FormParam("uname") String uname,
 			@FormParam("email") String email, @FormParam("password") String pass) {
-		String serviceUrl = "http://localhost:8888/rest/RegistrationService";
+		String serviceUrl = "http://hhmnw-is-swe2.appspot.com/rest/RegistrationService";
 		try {
 			URL url = new URL(serviceUrl);
 			String urlParameters = "uname=" + uname + "&email=" + email
@@ -194,7 +194,7 @@ public class UserController {
 	@Produces("text/html")
 	public Response home( @Context HttpServletRequest request ,@FormParam("uname") String uname,
 			@FormParam("password") String pass) {
-		String serviceUrl = "http://localhost:8888/rest/LoginService";
+		String serviceUrl = "http://hhmnw-is-swe2.appspot.com/rest/LoginService";
 		try {
 			URL url = new URL(serviceUrl);
 			String urlParameters = "uname=" + uname + "&password=" + pass;
@@ -271,7 +271,7 @@ public class UserController {
 	@Path("/sendFriend")
 	@Produces("text/html")
 	public String sendFriendRequest(@Context HttpServletRequest request ,@FormParam("uname") String uname) {
-		String serviceUrl = "http://localhost:8888/rest/sendFriendRequestService";
+		String serviceUrl = "http://hhmnw-is-swe2.appspot.com/rest/sendFriendRequestService";
 		try {
 			URL url = new URL(serviceUrl);
 			HttpSession session = request.getSession(true);
@@ -338,7 +338,7 @@ public class UserController {
 	@Path("/acceptFriendRequest")
 	@Produces("text/html")
 	public String acceptFriend(@Context HttpServletRequest request ,@FormParam("friendRequest") String uname) {
-		String serviceUrl = "http://localhost:8888/rest/acceptFriendRequestService";
+		String serviceUrl = "http://hhmnw-is-swe2.appspot.com/rest/acceptFriendRequestService";
 		try {
 			URL url = new URL(serviceUrl);
 			HttpSession session = request.getSession(true);
