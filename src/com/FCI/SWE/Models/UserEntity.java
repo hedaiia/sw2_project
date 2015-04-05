@@ -217,4 +217,52 @@ public class UserEntity {
 		}
 		return false;
 	}
+	
+	
+	/**
+	 * This method will be used to save friend rmessage  object in datastore
+	 * 
+	 * @return boolean if send message  is saved correctly or not
+	 */
+	public static int sendMessage (String toUser, String currentUser,String message_text) {
+		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+		boolean flag = false;
+		Query gaeQuery = new Query("users");
+		PreparedQuery pq = datastore.prepare(gaeQuery);
+		for (Entity entity : pq.asIterable()) {
+			
+			if (entity.getProperty("name").toString().equals(toUser)) {
+				flag = true;
+				break;
+				}
+		}
+		
+		if (!flag)
+			return 0;
+		
+		gaeQuery = new Query("friends");
+		pq = datastore.prepare(gaeQuery);
+		for (Entity entity : pq.asIterable()) {
+			
+			if ((entity.getProperty("friend1").toString().equals(toUser) && entity.getProperty("friend2").toString().equals(currentUser)) || (entity.getProperty("friend1").toString().equals(currentUser) && entity.getProperty("friend2").toString().equals(toUser))) {
+				flag = false;
+				break;
+				}
+		}
+		
+		if(flag)
+			return 1;
+		
+		gaeQuery = new Query("Messages");
+		pq = datastore.prepare(gaeQuery);
+		List<Entity> list = pq.asList(FetchOptions.Builder.withDefaults());
+		Entity Message = new Entity("Messages", list.size() + 1);
+		Message.setProperty("currentUser", currentUser);
+		Message.setProperty("toUser", toUser);
+		Message.setProperty("message_text",  message_text);
+		Message.setProperty("status",  1);
+		datastore.put(Message);
+		
+		return 2;
+	}
 }

@@ -151,5 +151,33 @@ public class UserServices {
 		return object.toString();
 
 	}
+	
+	/**
+	 make send message 
+	 */
+
+
+	@POST
+	@Path("/sendMessageService")
+	public String sendMessageService(@FormParam("uname") String uname,@FormParam("currentUser") String currentUser,@FormParam("message") String message_text) {
+		JSONObject object = new JSONObject();
+		int flag = UserEntity.sendMessage(uname , currentUser,message_text);
+		if (flag == 0) {
+			object.put("Status", "Failed");
+
+		} 
+		else if(flag == 1){
+			object.put("Status", "ok ");
+		}
+		else {
+			object.put("Status", "success");
+			
+		}
+
+		return object.toString();
+
+	}
+
+	
 
 }

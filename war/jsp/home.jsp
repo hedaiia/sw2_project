@@ -11,6 +11,7 @@
 
 
 <a href="/social/sendFriend">Send Friend Request</a> <br>
+<a href="/social/sendMessage">Send message</a> <br>
 <a href="/social/notifications"> Notifications </a> <br>
 </body>
 </html>
