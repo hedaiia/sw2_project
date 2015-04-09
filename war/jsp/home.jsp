@@ -1,4 +1,4 @@
-
+ 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -12,6 +12,7 @@
 
 <a href="/social/sendFriend">Send Friend Request</a> <br>
 <a href="/social/sendMessage">Send message</a> <br>
-<a href="/social/notifications"> Notifications </a> <br>
+ <a href="/social/allNotifications/">Notifications</a><br>
+<a href="/social/sendGroupMessage/">Send Group Message</a><br>
 </body>
-</html>
+</html> 

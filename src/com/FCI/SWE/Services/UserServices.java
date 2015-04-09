@@ -1,29 +1,13 @@
 package com.FCI.SWE.Services;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import javax.ws.rs.FormParam;
-import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 
-import org.glassfish.jersey.server.mvc.Viewable;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 import com.FCI.SWE.Models.UserEntity;
 
@@ -37,16 +21,9 @@ import com.FCI.SWE.Models.UserEntity;
  *
  */
 @Path("/")
-@Produces("text/html")
+@Produces(MediaType.TEXT_PLAIN)
 public class UserServices {
 	
-	
-	/*@GET
-	@Path("/index")
-	public Response index() {
-		return Response.ok(new Viewable("/jsp/entryPoint")).build();
-	}*/
-
 
 		/**
 	 * Registration Rest service, this service will be called to make
@@ -68,6 +45,7 @@ public class UserServices {
 		user.saveUser();
 		JSONObject object = new JSONObject();
 		object.put("Status", "OK");
+//		System.out.println(object.toString());
 		return object.toString();
 	}
 
@@ -88,96 +66,14 @@ public class UserServices {
 			object.put("Status", "Failed");
 
 		} else {
+			
 			object.put("Status", "OK");
 			object.put("name", user.getName());
 			object.put("email", user.getEmail());
 			object.put("password", user.getPass());
+			object.put("id", user.getId());
 		}
-
 		return object.toString();
-
 	}
-	
-	/**
-	 * send Friend Request Rest Service, this service will be called to make send request process
-	 * also will check users data from datastore
-	 * @param uname provided user name
-	 * @param currentUser provided current user
-	 * @return object in json format
-	 */
-	
-	@POST
-	@Path("/sendFriendRequestService")
-	public String sendFriendRequestService(@FormParam("uname") String uname,@FormParam("currentUser") String currentUser) {
-		JSONObject object = new JSONObject();
-		int flag = UserEntity.sendFriendRequest(uname , currentUser);
-		if (flag == 0) {
-			object.put("Status", "Failed");
-
-		} 
-		else if(flag == 1){
-			object.put("Status", "Exist");
-		}
-		else {
-			object.put("Status", "OK");
-			
-		}
-
-		return object.toString();
-
-	}
-	
-	/**
-	 * accept Friend Request Rest Service, this service will be called to make accept request process
-	 * also will check users data from datastore
-	 * @param uname provided user name
-	 * @param currentUser provided current user
-	 * @return object in json format
-	 */
-	
-	@POST
-	@Path("/acceptFriendRequestService")
-	public String accpetFriendService(@FormParam("uname") String uname,@FormParam("currentUser") String currentUser) {
-		JSONObject object = new JSONObject();
-		boolean flag = UserEntity.acceptFriendRequest(uname , currentUser);
-		if (flag == false) {
-			object.put("Status", "Failed");
-
-		} else {
-			object.put("Status", "OK");
-			
-		}
-
-		return object.toString();
-
-	}
-	
-	/**
-	 make send message 
-	 */
-
-
-	@POST
-	@Path("/sendMessageService")
-	public String sendMessageService(@FormParam("uname") String uname,@FormParam("currentUser") String currentUser,@FormParam("message") String message_text) {
-		JSONObject object = new JSONObject();
-		int flag = UserEntity.sendMessage(uname , currentUser,message_text);
-		if (flag == 0) {
-			object.put("Status", "Failed");
-
-		} 
-		else if(flag == 1){
-			object.put("Status", "ok ");
-		}
-		else {
-			object.put("Status", "success");
-			
-		}
-
-		return object.toString();
-
-	}
-
-	
 
 }

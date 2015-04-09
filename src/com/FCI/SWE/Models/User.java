@@ -11,7 +11,7 @@ public class User {
 	private String email;
 	private String password;
 	
-	private static User currentActiveUser;
+	public static User currentActiveUser;
 
 	/**
 	 * Constructor accepts user data
@@ -23,14 +23,6 @@ public class User {
 	 * @param password
 	 *            user provided password
 	 */
-	
-	public  User() {
-		this.name = name;
-		this.email = email;
-		this.password = password;
-
-	}
-	
 	private User(String name, String email, String password) {
 		this.name = name;
 		this.email = email;
@@ -38,8 +30,6 @@ public class User {
 
 	}
 	
-	
-
 	private void setId(long id){
 		this.id = id;
 	}
@@ -64,13 +54,6 @@ public class User {
 		return currentActiveUser;
 	}
 	
-	public static void logout(){
-		
-		currentActiveUser=null;
-	}
-	
-	
-	
 	/**
 	 * 
 	 * This static method will form UserEntity class using json format contains
@@ -94,8 +77,5 @@ public class User {
 			e.printStackTrace();
 		}
 		return null;
-
 	}
-
-
 }
