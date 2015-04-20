@@ -10,6 +10,7 @@ import javax.ws.rs.Produces;
 
 import org.json.simple.JSONObject;
 
+import com.FCI.SWE.Models.PageEntity;
 import com.FCI.SWE.Models.UserEntity;
 
 /**
@@ -177,6 +178,23 @@ public class UserServices {
 	
 			return object.toString();
 	
+		}
+		@POST
+		@Path("/CreatePage")
+		public String CreatePageService(@FormParam("name") String pageName,@FormParam("Type") String pageType,@FormParam("pageDescription") String pageDescription,@FormParam("adminID") String adminID,@FormParam("pageOwner") String pageOwner,@FormParam("numberOfLikes") int numberOfLikes) {
+			JSONObject object = new JSONObject();
+			String flag = PageEntity.createPage(pageName , pageType,pageDescription,adminID,pageOwner,numberOfLikes);
+			if (flag == "failed") {
+				object.put("numberOfLikes", "Failed");
+
+			}
+			else {
+				object.put("numberOfLikes", "0");
+				
+			}
+
+			return object.toString();
+
 		}
 
 }

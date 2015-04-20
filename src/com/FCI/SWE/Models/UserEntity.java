@@ -28,6 +28,7 @@ public class UserEntity {
 	private String name;
 	private String email;
 	private String password;
+	private long id;
 
 
 	/**
@@ -39,7 +40,13 @@ public class UserEntity {
 	 *            user email
 	 * @param password
 	 *            user provided password
+	 *            
 	 */
+	
+	public UserEntity() {
+		
+	}
+	
 	public UserEntity(String name, String email, String password) {
 		this.name = name;
 		this.email = email;
@@ -57,6 +64,9 @@ public class UserEntity {
 	public String getPass() {
 		return password;
 	}
+	public long getId() 
+	{
+		return id;}
 	
 	/**
 		 * 
@@ -280,5 +290,6 @@ public class UserEntity {
 			
 			return 0;
 		}
+		
 	
 }
