@@ -4,14 +4,15 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Send friend request</title>
+<title>Write User Post</title>
 </head>
 <body>
-<form action="/social/groupMessage" method="post">	
-	Name : <input type = "text" name="receiver" /><br>		
-	Message name : <input type = "text" name="messageName" /><br>
-	Message :<br> <textarea rows="5" cols="21" name = "message"></textarea><br>
-<input type = "submit" value="Send Message">
+
+<form action="/social/WritePost" method="post">
+  Content : <textarea rows="5" cols="21" name = "postContent"></textarea> <br>
+   Privacy : <input type="text" name="privacy" /> <br>
+   Feeling : <input type="text" name="feeling" /> <br>
+  <input type="submit" value="Post">
   </form>
   </body>
 </html>

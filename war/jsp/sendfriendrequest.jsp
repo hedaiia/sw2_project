@@ -9,7 +9,7 @@
 <body>
 
 <form action="/social/sendFriend" method="post">
-  Email : <input type="text" name="email" /> <br>
+  Name : <input type="text" name="uname" /> <br>
   <input type="submit" value="send Friend Request">
   </form>
   </body>

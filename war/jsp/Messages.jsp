@@ -4,14 +4,15 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Send Message</title>
+<title>Send message</title>
 </head>
 <body>
 
 <form action="/social/sendMessage" method="post">
-Email :<br><input type="text" name = "receiverEmail"></input><br><br>
-Message :<br> <textarea rows="5" cols="21" name = "messageText"></textarea><br>
-<input type = "submit" value="Send message">
-</form>
+Name : <input type="text" name="uname" /> <br>
+message : <input type="text" name="message" /> <br>
+  
+  <input type="submit" value="send message ">
+  </form>
   </body>
 </html>

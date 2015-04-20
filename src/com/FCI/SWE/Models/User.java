@@ -11,7 +11,7 @@ public class User {
 	private String email;
 	private String password;
 	
-	public static User currentActiveUser;
+	private static User currentActiveUser;
 
 	/**
 	 * Constructor accepts user data
@@ -23,6 +23,14 @@ public class User {
 	 * @param password
 	 *            user provided password
 	 */
+	
+	public  User() {
+				this.name = name;
+				this.email = email;
+				this.password = password;
+		
+			}
+	
 	private User(String name, String email, String password) {
 		this.name = name;
 		this.email = email;
@@ -53,6 +61,11 @@ public class User {
 	public static User getCurrentActiveUser(){
 		return currentActiveUser;
 	}
+	public static void logout(){
+				
+				currentActiveUser=null;
+			}
+	
 	
 	/**
 	 * 

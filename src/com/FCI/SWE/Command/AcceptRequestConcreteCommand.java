@@ -1,4 +1,4 @@
-package com.FCI.SWE.Command;
+/*package com.FCI.SWE.Command;
 
 import com.FCI.SWE.Models.FriendsEntity;
 
@@ -19,3 +19,4 @@ public class AcceptRequestConcreteCommand implements ICommnad {
 	}
 
 }
+*/

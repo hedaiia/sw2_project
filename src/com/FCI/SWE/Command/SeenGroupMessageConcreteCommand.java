@@ -1,4 +1,4 @@
-package com.FCI.SWE.Command;
+/*package com.FCI.SWE.Command;
 
 import com.FCI.SWE.Services.NotificationsService;
 import com.FCI.SWE.Models.GroupMessageEntity;
@@ -24,3 +24,4 @@ public class SeenGroupMessageConcreteCommand implements ICommnad {
 	}
 
 }
+*/

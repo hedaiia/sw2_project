@@ -12,7 +12,9 @@
 
 <a href="/social/sendFriend">Send Friend Request</a> <br>
 <a href="/social/sendMessage">Send message</a> <br>
- <a href="/social/allNotifications/">Notifications</a><br>
-<a href="/social/sendGroupMessage/">Send Group Message</a><br>
+ <a href="/social/notifications/">Notifications</a><br>
+<a href="/social/groupMessage/">Send Group Message</a><br>
+<a href="/social/WritePost">Post</a><br>
+
 </body>
 </html> 
