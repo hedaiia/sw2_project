@@ -1,6 +1,9 @@
 package com.FCI.SWE.Models;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Vector;
 
 import com.google.appengine.api.datastore.DatastoreService;
@@ -31,12 +34,28 @@ public int createPagePost() {
 	
 	return 0;
 }
-public int createUserPost(String currentUser, String postContent,
-		String privacy, String feeling) {
-	// TODO Auto-generated method stub
-	return 0;
+
+public ArrayList<Map> viewTimeLine(String currentUser, String pageName) 
+{
+	ArrayList<Map> array = new ArrayList<Map>() ;
+	DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+	Query gaeQuery = new Query ("posts");
+	PreparedQuery pq = datastore.prepare(gaeQuery);
+
+	for(Entity e : pq.asIterable())
+	{
+		if(e.getProperty("type").toString().equals("pagePost") && e.getProperty("pageName").toString().equals(pageName))
+		{
+			Map <String ,String> posts = new HashMap();					
+			posts.put("postOwner", e.getProperty("postOwner").toString() + " posted this.");
+			posts.put("postContent", e.getProperty("postContent").toString());
+
+			array.add(posts);
+		}
+	}
+
+	return array ;			
 }
-	
 	
 
 }

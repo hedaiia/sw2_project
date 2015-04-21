@@ -513,7 +513,6 @@ public class UserController {
 	@Produces("text/html")
 	public String createPage(@Context HttpServletRequest request ,@FormParam("name") String pageName,@FormParam("Type") String pageType,
 			@FormParam("pageDescription") String pageDescription,@FormParam("adminID") String adminID,
-			/*@FormParam("pageOwner") String pageOwner*/
 			@FormParam("numberOfLikes") int numberOfLikes) {
 		
 		String serviceUrl = "http://localhost:8888/rest/createPageService";
