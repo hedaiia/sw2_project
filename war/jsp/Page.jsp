@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<form action="/social/CreatePage" method="post">
+<form action="/social/createPage" method="post">
 Name : <input type="text" name="name" /> <br>
 Type : <input type="text" name="Type" /> <br>
 pageDescription : <input type="text" name="pageDescription" /> <br>

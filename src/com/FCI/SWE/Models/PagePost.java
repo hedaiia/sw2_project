@@ -1,6 +1,7 @@
 package com.FCI.SWE.Models;
 
 import java.util.List;
+import java.util.Vector;
 
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
@@ -9,23 +10,32 @@ import com.google.appengine.api.datastore.FetchOptions;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 
-public class PagePost extends PostEntity{
+public class PagePost extends PostBuilder{    //page builder
+	String currentUser;
+	String postContent;
+	String privacy;
+	String feeling;
+	Vector<String> postHashtag = new Vector<String>();
+	int numberOfLikes;
+	int numberOfSeens;
+public int createPagePost() {
+	// TODO Auto-generated method stub
+	DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+	Query gaeQuery = new Query("posts");
+	PreparedQuery pq = datastore.prepare(gaeQuery);
+	List<Entity> list = pq.asList(FetchOptions.Builder.withDefaults());
+	Entity entity = new Entity("posts", list.size() + 1);
+	entity.setProperty("postOwner", currentUser);
+	entity.setProperty("postContent", postContent);
+	entity.setProperty("type", "pagePost");
 	
-public static int createPagePost(String currentUser, String postContent)
-	
-	{
-		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-		Query gaeQuery = new Query("posts");
-		PreparedQuery pq = datastore.prepare(gaeQuery);
-		List<Entity> list = pq.asList(FetchOptions.Builder.withDefaults());
-		Entity entity = new Entity("posts", list.size() + 1);
-		entity.setProperty("postOwner", currentUser);
-		entity.setProperty("postContent", postContent);
-		entity.setProperty("type", "pagePost");
-		
-		return 0;
-		
-	}
+	return 0;
+}
+public int createUserPost(String currentUser, String postContent,
+		String privacy, String feeling) {
+	// TODO Auto-generated method stub
+	return 0;
+}
 	
 	
 

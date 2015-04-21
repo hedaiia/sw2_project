@@ -180,8 +180,11 @@ public class UserServices {
 	
 		}
 		@POST
-		@Path("/CreatePage")
-		public String CreatePageService(@FormParam("name") String pageName,@FormParam("Type") String pageType,@FormParam("pageDescription") String pageDescription,@FormParam("adminID") String adminID,@FormParam("pageOwner") String pageOwner,@FormParam("numberOfLikes") int numberOfLikes) {
+		@Path("/createPageService")
+		public String createPageService(@FormParam("name") String pageName,@FormParam("Type") String pageType,
+				@FormParam("pageDescription") String pageDescription,@FormParam("adminID") String adminID,
+				@FormParam("pageOwner") String pageOwner,
+				@FormParam("numberOfLikes") int numberOfLikes) {
 			JSONObject object = new JSONObject();
 			String flag = PageEntity.createPage(pageName , pageType,pageDescription,adminID,pageOwner,numberOfLikes);
 			if (flag == "failed") {

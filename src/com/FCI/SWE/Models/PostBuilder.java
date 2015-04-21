@@ -16,9 +16,9 @@ import com.google.appengine.api.datastore.FetchOptions;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 
-public class PostEntity {
+public class PostBuilder {
 	
-	String currentUser;
+	/*String currentUser;
 	String postContent;
 	String privacy;
 	String feeling;
@@ -46,6 +46,11 @@ public class PostEntity {
 		}
 		return array.toString();
 	}
-
+	*/
+	
+	
+	//abstract int createPagePost();
+	//abstract int createUserPost(String currentUser, String postContent, String privacy,String feeling);
+	
 		
 }

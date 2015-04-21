@@ -17,6 +17,7 @@ import org.glassfish.jersey.server.mvc.Viewable;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -24,9 +25,11 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.core.Context;
+
 import com.FCI.SWE.Models.UserEntity;
 
 
@@ -130,6 +133,13 @@ public class UserController {
 		
 	}
 	
+	@GET
+	@Path("/createPage")
+	public Response createPage()
+	{
+		return Response.ok(new Viewable("/jsp/Page")).build();
+		
+	}
 
 	/**
 	 * Action function to response to signup request, This function will act as
@@ -499,15 +509,20 @@ public class UserController {
 	
 	
 	@POST
-	@Path("/createPge")
+	@Path("/createPage")
 	@Produces("text/html")
-	public String createPge(@Context HttpServletRequest request ,@FormParam("pageOwner") String pageOwner) {
+	public String createPage(@Context HttpServletRequest request ,@FormParam("name") String pageName,@FormParam("Type") String pageType,
+			@FormParam("pageDescription") String pageDescription,@FormParam("adminID") String adminID,
+			/*@FormParam("pageOwner") String pageOwner*/
+			@FormParam("numberOfLikes") int numberOfLikes) {
 		
-		String serviceUrl = "http://localhost:8888/rest/sendFriendRequestService";
+		String serviceUrl = "http://localhost:8888/rest/createPageService";
 		try {
 			URL url = new URL(serviceUrl);
 			HttpSession session = request.getSession(true);	
-			String urlParameters = "uname=" + pageOwner + "&currentUser=" + session.getAttribute("pageOwner");
+			String urlParameters = "name=" + pageName + "&pageOwner=" + session.getAttribute("name")
+					+ "&Type=" + pageType + "&Type=" + pageDescription + "&pageDescription=" + pageDescription
+					+ "&adminID=" + adminID + "&numberOfLikes=" + numberOfLikes;
 				
 			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 			connection.setDoOutput(true);

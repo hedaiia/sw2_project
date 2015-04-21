@@ -16,5 +16,7 @@
 <a href="/social/groupMessage/">Send Group Message</a><br>
 <a href="/social/WritePost">Post</a><br>
 
+<a href="/social/createPage">page</a><br>
+
 </body>
 </html> 

@@ -9,9 +9,9 @@ import com.google.appengine.api.datastore.FetchOptions;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 
-public class UserPost extends PostEntity {
+public class UserPost extends PostBuilder {
 
-public static int createUserPost(String currentUser, String postContent, String privacy,String feeling)
+public int createUserPost(String currentUser, String postContent, String privacy,String feeling)
 	
 	{
 		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();

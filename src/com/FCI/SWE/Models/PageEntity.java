@@ -20,8 +20,9 @@ public class PageEntity {
 		return numberOfLikes;
 	}
 	
-	public static String createPage (String pageName, String pageType,
-		String pageDescription, String adminID , String pageOwner ,int numberOfLikes)
+	public static String createPage(String pageName, String pageType,
+		String pageDescription, String adminID , String pageOwner 
+		,int numberOfLikes)
 		{
 			DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 			Query gaeQuery = new Query("Page");
