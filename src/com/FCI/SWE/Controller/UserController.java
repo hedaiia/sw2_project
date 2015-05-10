@@ -520,7 +520,7 @@ public class UserController {
 			URL url = new URL(serviceUrl);
 			HttpSession session = request.getSession(true);	
 			String urlParameters = "name=" + pageName + "&pageOwner=" + session.getAttribute("name")
-					+ "&Type=" + pageType + "&Type=" + pageDescription + "&pageDescription=" + pageDescription
+					+ "&Type=" + pageType + "&pageDescription=" + pageDescription
 					+ "&adminID=" + adminID + "&numberOfLikes=" + numberOfLikes;
 				
 			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
