@@ -10,7 +10,7 @@
 
 <form action="/social/sendMessage" method="post">
 Name : <input type="text" name="uname" /> <br>
-message : <input type="text" name="message" /> <br>
+message : <input type="text" name="message_text" /> <br>
   
   <input type="submit" value="send message ">
   </form>

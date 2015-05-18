@@ -1,12 +1,9 @@
 package com.FCI.SWE.Models;
 
-import java.util.Date;
 import java.util.List;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-import com.google.appengine.api.datastore.EntityNotFoundException;
-import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
@@ -15,21 +12,20 @@ import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 
 /**
- * <h1>User Entity class</h1>
- * <p>
- * This class will act as a model for user, it will holds user data
- * </p>
- *
- * @author Mohamed Samir
- * @version 1.0
+ * This class contains REST services, also contains action function for web
+ * application
+ * 
+ * @author hhmnw team
+ * @version 3.3
  * @since 2014-02-12
+ *
  */
+
 public class UserEntity {
 	private String name;
 	private String email;
 	private String password;
 	private long id;
-
 
 	/**
 	 * Constructor accepts user data
@@ -69,30 +65,27 @@ public class UserEntity {
 		return id;}
 	
 	/**
-		 * 
-		 * This static method will form UserEntity class using json format contains
-		 * user data
-		 * 
-		 * @param json
-		 *            String in json format contains user data
-		 * @return Constructed user entity
-		 */
-		public static UserEntity getUser(String json) {
+	 * 
+	 * This static method will form UserEntity class using json format contains
+	 * user data
+	 * 
+	 * @param json
+	 *            String in json format contains user data
+	 * @return Constructed user entity
+	 */
 	
-			JSONParser parser = new JSONParser();
-			try {
-				JSONObject object = (JSONObject) parser.parse(json);
-				return new UserEntity(object.get("name").toString(), object.get(
-						"email").toString(), object.get("password").toString());
+	public static UserEntity getUser(String json) {
+		JSONParser parser = new JSONParser();
+		try {
+			JSONObject object = (JSONObject) parser.parse(json);
+				return new UserEntity(object.get("name").toString(), 
+						object.get("email").toString(), object.get("password").toString());
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			return null;
-	
-		}
-	
-
+	}
 	
 	/**
 	 * 
@@ -107,9 +100,7 @@ public class UserEntity {
 	 */
 
 	public static UserEntity getUser(String name, String pass) {
-		DatastoreService datastore = DatastoreServiceFactory
-				.getDatastoreService();
-
+		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 		Query query = new Query("users");
 		PreparedQuery pq = datastore.prepare(query);
 		for (Entity entity : pq.asIterable()) {
@@ -131,165 +122,19 @@ public class UserEntity {
 	 * 
 	 * @return boolean if user is saved correctly or not
 	 */
+	
 	public Boolean saveUser() 
 	{
-		DatastoreService datastore = DatastoreServiceFactory
-				.getDatastoreService();
+		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 		Query gaeQuery = new Query("users");
 		PreparedQuery pq = datastore.prepare(gaeQuery);
 		List<Entity> list = pq.asList(FetchOptions.Builder.withDefaults());
-
 		Entity employee = new Entity("users", list.size() + 1);
-
 		employee.setProperty("name", this.name);
 		employee.setProperty("email", this.email);
 		employee.setProperty("password", this.password);
 		datastore.put(employee);
-
 		return true;
-
 	}
-	/**
-	 * This method will be used to save friend request object in datastore
-	 * 
-	 * @return if request is saved correctly or not
-	 */
-	
-	public static int sendFriendRequest(String toUser, String currentUser) {
-		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-		boolean flag = false;
-		Query gaeQuery = new Query("users");
-		PreparedQuery pq = datastore.prepare(gaeQuery);
-		for (Entity entity : pq.asIterable()) {
-			
-			if (entity.getProperty("name").toString().equals(toUser)) {
-				flag = true;
-				break;
-				}
-		}
-		
-		if (!flag)
-			return 0;
-		
-		gaeQuery = new Query("friends");
-		pq = datastore.prepare(gaeQuery);
-		for (Entity entity : pq.asIterable()) {
-			
-			if ((entity.getProperty("friend1").toString().equals(toUser) && entity.getProperty("friend2").toString().equals(currentUser)) || (entity.getProperty("friend1").toString().equals(currentUser) && entity.getProperty("friend2").toString().equals(toUser))) {
-				flag = false;
-				break;
-				}
-		}
-		
-		if(!flag)
-			return 1;
-		
-		gaeQuery = new Query("requests");
-		pq = datastore.prepare(gaeQuery);
-		List<Entity> list = pq.asList(FetchOptions.Builder.withDefaults());
-		Entity request = new Entity("requests", list.size() + 1);
-		request.setProperty("currentUser", currentUser);
-		request.setProperty("toUser", toUser);
-		request.setProperty("status", 1);
-		datastore.put(request);
-		
-		return 2;
-	}
-	
-	/**
-	 * This method will be used to save friend request object in datastore
-	 * 
-	 * @return boolean if accepted request is saved correctly or not
-	 */
-	public static boolean acceptFriendRequest(String toUser, String currentUser) {
-			DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-				
-
-				Query gaeQuery = new Query("requests");
-		PreparedQuery pq = datastore.prepare(gaeQuery);
-		for (Entity entity : pq.asIterable()) {
-			if(entity.getProperty("currentUser").equals(toUser) && entity.getProperty("toUser").equals(currentUser)){
-								entity.setProperty("status", 0);
-								datastore.put(entity);
-								
-								gaeQuery = new Query("friends");
-								pq = datastore.prepare(gaeQuery);
-								List<Entity> list = pq.asList(FetchOptions.Builder.withDefaults());
-				
-								Entity friends = new Entity("friends", list.size() + 1);
-				
-								friends.setProperty("friend1", currentUser);
-								friends.setProperty("friend2", toUser);
-								datastore.put(friends);
-								
-								return true;
-			}
-		}
-		return false;
-	}	
-	
-	/**
-		 * This method will be used to save friend rmessage  object in datastore
-		 * 
-		 * @return boolean if send message  is saved correctly or not
-		 */
-		public static int sendMessage (String toUser, String currentUser,String message_text) {
-			DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-			boolean flag = false;
-			Query gaeQuery = new Query("users");
-			PreparedQuery pq = datastore.prepare(gaeQuery);
-			for (Entity entity : pq.asIterable()) {
-				
-				if (entity.getProperty("name").toString().equals(toUser)) {
-					flag = true;
-					break;
-					}
-			}
-			
-			if (!flag)
-				return 0;
-
-			
-			gaeQuery = new Query("Messages");
-			pq = datastore.prepare(gaeQuery);
-			List<Entity> list = pq.asList(FetchOptions.Builder.withDefaults());
-			Entity Message = new Entity("Messages", list.size() + 1);
-			Message.setProperty("currentUser", currentUser);
-			Message.setProperty("toUser", toUser);
-			Message.setProperty("message_text",  message_text);
-			Message.setProperty("status",  1);
-			datastore.put(Message);
-			
-			return 1;
-		}
-		
-		public static int sendGroupMessage(String mName, String toUser,String message_text) {
-			DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-			boolean flag = false;
-		/*	Query gaeQuery = new Query("users");
-			PreparedQuery pq = datastore.prepare(gaeQuery);
-			for (Entity entity : pq.asIterable()) {
-				if (entity.getProperty("name").toString().equals(toUser)) {
-					flag = true;
-					break;
-					}
-			}
-			
-			if (!flag)
-				return 0;*/
-
-			Query gaeQuery = new Query("GroupMessages");
-			PreparedQuery pq = datastore.prepare(gaeQuery);
-			List<Entity> list = pq.asList(FetchOptions.Builder.withDefaults());
-			Entity Message = new Entity("GroupMessages", list.size() + 1);
-			Message.setProperty("currentUser", User.getCurrentActiveUser());
-			Message.setProperty("receiver", toUser);
-			Message.setProperty("messageName",  mName);
-			Message.setProperty("message", message_text);
-			datastore.put(Message);
-			
-			return 0;
-		}
-		
 	
 }

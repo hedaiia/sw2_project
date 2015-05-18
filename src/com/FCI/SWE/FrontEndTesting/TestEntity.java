@@ -102,6 +102,8 @@ import org.testng.annotations.Test;
 public class TestEntity {
 	UserEntity u=new UserEntity();
 	UserPost p = new UserPost();
+	FriendsEntity f = new FriendsEntity();
+	MessagesEntity m = new MessagesEntity();
 	PageEntity page = new PageEntity();
 	private final LocalServiceTestHelper helper = new LocalServiceTestHelper(
 			new LocalDatastoreServiceTestConfig());
@@ -161,19 +163,19 @@ public static Object[][]sendRequestTest(){
 	@Test(dataProvider ="test1")
 	public void sendRequestTest(int result, String toUser , String currentUser)
 	{
-		 Assert.assertEquals(result,u.sendFriendRequest(toUser, currentUser));
+		 Assert.assertEquals(result,f.sendFriendRequest(toUser, currentUser));
 	}
 	
 	@Test(dataProvider ="test2")
 	public void acceptRequestTest(boolean result, String toUser , String currentUser)
 	{
-		 Assert.assertEquals(result,u.acceptFriendRequest(toUser, currentUser));
+		 Assert.assertEquals(result,f.acceptFriendRequest(toUser, currentUser));
 	}
 	
 	@Test(dataProvider ="test3")
 	public void messageTest(int result, String toUser , String currentUser , String message_text)
 	{
-		 Assert.assertEquals(result,u.sendMessage(toUser, currentUser, message_text));
+		 Assert.assertEquals(result,m.sendMessage(toUser, currentUser, message_text));
 	}
 	
 	@Test(dataProvider ="test4")
