@@ -4,7 +4,10 @@ import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+
 import org.json.simple.JSONObject;
+
+import com.FCI.SWE.Models.CreatePageParameter;
 import com.FCI.SWE.Models.PageEntity;
 
 @Path("/")
@@ -31,7 +34,8 @@ public class PageService {
 				@FormParam("numberOfLikes") int numberOfLikes) {
 			
 			JSONObject object = new JSONObject();
-			String flag = PageEntity.createPage(pageName , pageType,pageDescription,adminID,pageOwner,numberOfLikes);
+			String flag = PageEntity.createPage(new CreatePageParameter(pageName, pageType, pageDescription, adminID,
+					pageOwner, numberOfLikes));
 			if (flag == "failed") 
 			{
 				object.put("numberOfLikes", "Failed");

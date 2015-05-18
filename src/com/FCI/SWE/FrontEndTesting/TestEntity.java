@@ -61,6 +61,7 @@ import javax.ws.rs.core.Context;
 
 
 
+
 ////
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -181,7 +182,8 @@ public static Object[][]sendRequestTest(){
 	@Test(dataProvider ="test4")
 	public void pageTest(String result, String pageName , String pageType , String pageDescription , String adminID , String pageOwner ,int numberOfLikes)
 	{
-		 Assert.assertEquals(result,page.createPage(pageName, pageType, pageDescription, adminID, pageOwner, numberOfLikes));
+		 Assert.assertEquals(result,page.createPage(new CreatePageParameter(pageName, pageType, pageDescription, adminID, pageOwner,
+				numberOfLikes)));
 	}
 	
 	@Test(dataProvider ="test5")

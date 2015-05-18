@@ -20,10 +20,9 @@ public class PageEntity {
 		return numberOfLikes;
 	}
 	
-	public static String createPage(String pageName, String pageType,
-		String pageDescription, String adminID , String pageOwner 
-		,int numberOfLikes)
+	public static String createPage(CreatePageParameter parameterObject)
 		{
+			int numberOfLikes = parameterObject.numberOfLikes;
 			DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 			Query gaeQuery = new Query("Page");
 			PreparedQuery pq = datastore.prepare(gaeQuery);
@@ -31,12 +30,12 @@ public class PageEntity {
 			
 			numberOfLikes = 0 ;
 			Entity page = new Entity ("Page" , list.size() + 1);
-			page.setProperty("PageName", pageName);
-			page.setProperty("PageType" , pageType);
-			page.setProperty("PageDescription" , pageDescription);
-			page.setProperty("AdminID", adminID);
+			page.setProperty("PageName", parameterObject.pageName);
+			page.setProperty("PageType" , parameterObject.pageType);
+			page.setProperty("PageDescription" , parameterObject.pageDescription);
+			page.setProperty("AdminID", parameterObject.adminID);
 			page.setProperty("NumberOfLikes" , numberOfLikes);
-			page.setProperty("pageOwner" , pageOwner);
+			page.setProperty("pageOwner" , parameterObject.pageOwner);
 			
 			datastore.put(page);
 			return "Ok";
